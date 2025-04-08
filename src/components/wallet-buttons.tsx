@@ -3,28 +3,36 @@
 import { Button } from "@/components/ui/button"
 import { Wallet } from "lucide-react"
 import { useState } from "react"
+import { connect, disconnect, StarknetWindowObject } from "starknetkit";
 
 export function WalletButton() {
-  const [isConnected, setIsConnected] = useState(false)
-  const [address, setAddress] = useState("")
-
+  const [isConnected, setIsConnected] = useState(false);
+  const [address, setAddress] = useState("");
+  const [connection, setConnection] = useState<StarknetWindowObject | null>(null);
   const handleConnect = async () => {
     try {
       // This is a stub for Starknet wallet connection
       // In a real implementation, we would use starknet.js to connect
-      console.log("Connecting to Starknet wallet...")
+      console.log("Connecting to Starknet wallet...");
 
-      // Mock successful connection
-      setIsConnected(true)
-      setAddress("0x1234...5678")
+      const {wallet, connectorData} = await connect({modalMode: "canAsk", dappName: "Told Ya", modalTheme: "system"});
+
+      if (wallet && connectorData!.account) {
+        setIsConnected(true);
+        setConnection(wallet);
+      }
     } catch (error) {
-      console.error("Failed to connect wallet:", error)
+      console.error("Failed to connect wallet:", error);
     }
   }
 
   const handleDisconnect = () => {
-    setIsConnected(false)
-    setAddress("")
+    disconnect({clearLastWallet: true});
+    setIsConnected(false);
+    if (connection) {
+      setConnection(null);
+      setAddress("");
+    }
   }
 
   return (
