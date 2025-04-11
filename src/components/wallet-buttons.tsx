@@ -2,49 +2,44 @@
 
 import { Button } from "@/components/ui/button"
 import { Wallet } from "lucide-react"
-import { useState } from "react"
-import { connect, disconnect, StarknetWindowObject } from "starknetkit";
+import { StarknetkitConnector, useStarknetkitConnectModal } from "starknetkit";
+import { truncateAddress } from "@/lib/utils";
+import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+
 
 export function WalletButton() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [address, setAddress] = useState("");
-  const [connection, setConnection] = useState<StarknetWindowObject | null>(null);
+  const { connect, connectors } = useConnect({});
+  const { disconnect } = useDisconnect();
+  const { address, status } = useAccount();
+  const { starknetkitConnectModal } = useStarknetkitConnectModal({connectors: connectors as StarknetkitConnector[]});
+
   const handleConnect = async () => {
-    try {
-      // This is a stub for Starknet wallet connection
-      // In a real implementation, we would use starknet.js to connect
-      console.log("Connecting to Starknet wallet...");
 
-      const {wallet, connectorData} = await connect({modalMode: "canAsk", dappName: "Told Ya", modalTheme: "system"});
-
-      if (wallet && connectorData!.account) {
-        setIsConnected(true);
-        setConnection(wallet);
-      }
-    } catch (error) {
-      console.error("Failed to connect wallet:", error);
+    const { connector } = await starknetkitConnectModal();
+    if (!connector) {
+      console.log("No connector selected");
+      return;
     }
+
+    await connect({connector: connector as StarknetkitConnector});
+
   }
 
   const handleDisconnect = () => {
-    disconnect({clearLastWallet: true});
-    setIsConnected(false);
-    if (connection) {
-      setConnection(null);
-      setAddress("");
-    }
+    disconnect();
   }
 
   return (
     <Button
-      onClick={isConnected ? handleDisconnect : handleConnect}
-      variant={isConnected ? "outline" : "default"}
+      onClick={status === "connected" ? handleDisconnect : handleConnect}
+      variant={status === 'connected' ? "outline" : "default"}
       className={
-        isConnected ? "bg-[#f5f3ee] text-[#0a2342] hover:bg-[#f5f3ee]/90" : "bg-[#FA3039] hover:bg-[#FA3039]/90"
+        status === 'connected' ? "bg-[#f5f3ee] text-[#0a2342] hover:bg-[#f5f3ee]/90" : "bg-[#FA3039] hover:bg-[#FA3039]/90"
       }
+
     >
       <Wallet className="mr-2 h-4 w-4" />
-      {isConnected ? address : "Connect Wallet"}
+      {status === 'connected' && address ? truncateAddress(address) : "Connect Wallet"}
     </Button>
   )
 }
