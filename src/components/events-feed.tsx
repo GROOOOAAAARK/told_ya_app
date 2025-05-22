@@ -1,9 +1,11 @@
+'use client'
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { formatDate } from "@/lib/utils"
 import { Clock, Users } from "lucide-react"
 import type { Event } from "@/lib/types"
 import { Abi } from "starknet"
-import { StarknetTypedContract, useCall, useNetwork } from "@starknet-react/core"
+import { StarknetTypedContract, useCall } from "@starknet-react/core"
 
 interface EventsFeedProps {
   events: Event[]

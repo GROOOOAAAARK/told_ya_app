@@ -1,9 +1,11 @@
+'use client'
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { truncateAddress } from "@/lib/utils"
 import { Tag, TrendingUp } from "lucide-react"
 import type { Prediction } from "@/lib/types"
 import { Abi } from "starknet"
-import { StarknetTypedContract, useCall, useNetwork } from "@starknet-react/core"
+import { StarknetTypedContract, useCall } from "@starknet-react/core"
 
 interface PredictionsFeedProps {
   predictions: Prediction[]

@@ -1,3 +1,4 @@
+'use client'
 import EventsFeed from "@/components/events-feed"
 import Header from "@/components/header"
 import PredictionsFeed from "@/components/predictions-feed"
