@@ -11,6 +11,19 @@ interface EventsFeedProps {
 }
 
 export default function EventsFeed({ events, contract }: EventsFeedProps) {
+
+  const { data, error } = useCall({
+    abi: contract.abi,
+    address: contract.address as `0x${string}`,
+    functionName: "get_events",
+    parseResult: true,
+    watch: false,//true,
+    enabled: true,
+    args: [],
+  });
+
+  console.log(`Events: ${data}, Error: ${error}`); //TODO: remove
+
   return (
     <section>
       <h2 className="text-2xl font-bold text-[#0a2342] mb-6">Ongoing Events Feed</h2>
