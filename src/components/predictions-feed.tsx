@@ -11,6 +11,19 @@ interface PredictionsFeedProps {
 }
 
 export default function PredictionsFeed({ predictions, contract }: PredictionsFeedProps) {
+
+  const { data, error } = useCall({
+    abi: contract.abi,
+    functionName: "get_predictions",
+    address: contract.address as `0x${string}`,
+    parseResult: true,
+    watch: false,//true,
+    enabled: true,
+    args: [],
+  });
+
+  console.log(`Predictions: ${data}, Error: ${error}`); //TODO: remove
+
   return (
     <section>
       <h2 className="text-2xl font-bold text-[#0a2342] mb-6">Latest Predictions</h2>
