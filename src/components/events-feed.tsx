@@ -2,12 +2,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { formatDate } from "@/lib/utils"
 import { Clock, Users } from "lucide-react"
 import type { Event } from "@/lib/types"
+import { Abi } from "starknet"
+import { StarknetTypedContract, useCall, useNetwork } from "@starknet-react/core"
 
 interface EventsFeedProps {
   events: Event[]
+  contract: StarknetTypedContract<Abi>
 }
 
-export default function EventsFeed({ events }: EventsFeedProps) {
+export default function EventsFeed({ events, contract }: EventsFeedProps) {
   return (
     <section>
       <h2 className="text-2xl font-bold text-[#0a2342] mb-6">Ongoing Events Feed</h2>
