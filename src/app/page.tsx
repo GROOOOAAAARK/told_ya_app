@@ -18,7 +18,7 @@ export default function Home() {
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-12">
         <EventsFeed events={mockEvents} contract={contract!} />
-        <PredictionsFeed predictions={mockPredictions} />
+        <PredictionsFeed predictions={mockPredictions} contract={contract!} />
       </main>
       <Footer />
     </div>

@@ -2,12 +2,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { truncateAddress } from "@/lib/utils"
 import { Tag, TrendingUp } from "lucide-react"
 import type { Prediction } from "@/lib/types"
+import { Abi } from "starknet"
+import { StarknetTypedContract, useCall, useNetwork } from "@starknet-react/core"
 
 interface PredictionsFeedProps {
   predictions: Prediction[]
+  contract: StarknetTypedContract<Abi>
 }
 
-export default function PredictionsFeed({ predictions }: PredictionsFeedProps) {
+export default function PredictionsFeed({ predictions, contract }: PredictionsFeedProps) {
   return (
     <section>
       <h2 className="text-2xl font-bold text-[#0a2342] mb-6">Latest Predictions</h2>
