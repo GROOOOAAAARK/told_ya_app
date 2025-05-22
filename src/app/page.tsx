@@ -4,7 +4,15 @@ import PredictionsFeed from "@/components/predictions-feed"
 import Footer from "@/components/footer"
 import { mockEvents, mockPredictions } from "@/lib/mock-data"
 
+import { useContract } from "@starknet-react/core"
+import { abi } from "@/lib/const"
+
 export default function Home() {
+  const { contract } = useContract({
+    abi,
+    address: `0x${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#f5f3ee]">
       <Header />
