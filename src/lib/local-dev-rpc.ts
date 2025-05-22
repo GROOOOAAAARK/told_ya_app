@@ -2,7 +2,16 @@ import { jsonRpcProvider } from "@starknet-react/core";
 
 function localDevRpc() {
     return {
-        nodeUrl: `http://localhost:5050`
+        nodeUrl: `http://127.0.0.1:5050`,
+        fetchOptions: {
+            // mode: 'no-cors',
+            credentials: 'omit',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            }
+        }
     }
 }
 

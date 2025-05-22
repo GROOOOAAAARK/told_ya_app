@@ -1,14 +1,14 @@
 import { Chain } from "@starknet-react/chains";
 
 export const localChain: Chain = {
-    id: BigInt(11008330032),
+    id: BigInt("0x4b4154414e41"),
     name: "Local",
     rpcUrls: {
         default: {
-            http: ["http://localhost:5050"],
+            http: ["http://127.0.0.1:5050"],
         },
         public: {
-            http: ["http://localhost:5050"],
+            http: ["http://127.0.0.1:5050"],
         },
     },
     nativeCurrency: {
