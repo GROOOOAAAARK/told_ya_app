@@ -7,12 +7,7 @@ import type { Event } from "@/lib/types"
 import { Abi } from "starknet"
 import { StarknetTypedContract, useCall } from "@starknet-react/core"
 
-interface EventsFeedProps {
-  events: Event[]
-  contract: StarknetTypedContract<Abi>
-}
-
-export default function EventsFeed({ events, contract }: EventsFeedProps) {
+export default function EventsFeed({ events, contract }: {events: Event[], contract: StarknetTypedContract<Abi>}) {
 
   const { data, error } = useCall({
     abi: contract.abi,

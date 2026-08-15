@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex justify-center space-x-6">
           <Link
-            href="https://github.com"
+            href="https://github.com/GROOOAAAARK/told_ya"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#FA3039] transition-colors"
